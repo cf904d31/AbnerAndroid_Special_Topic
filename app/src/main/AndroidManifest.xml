@@ -21,7 +21,13 @@
         </activity>
         <activity android:name=".FarmChooseActivity" />
         <activity android:name=".TownChooseActivity" />
-        <activity android:name=".LoginFarmDetial"></activity>
+        <activity android:name=".LoginFarmDetial" />
+        <activity android:name=".EducationTownChoose" />
+        <activity android:name=".LiveTownChoose" />
+        <activity android:name=".EducationMainActivity" />
+        <activity android:name=".LiveMainActivity" />
+        <activity android:name=".EducationFarmDetial" />
+        <activity android:name=".LiveFarmDetial"></activity>
     </application>
 
 </manifest>
