@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class LoginFarmDetial extends AppCompatActivity {
-    private TextView login_farm_title,login_farm_content,login_farm_location;
+    private TextView login_farm_title,login_farm_content;
     private setURL setURL;
     private String url = "http://data.coa.gov.tw/Service/OpenData/DataFileService.aspx?UnitId=376";
     private String data;
@@ -39,7 +39,6 @@ public class LoginFarmDetial extends AppCompatActivity {
         setContentView(R.layout.activity_login_farm_detial);
         login_farm_title = (TextView)findViewById(R.id.login_farm_title);
         login_farm_content = (TextView)findViewById(R.id.login_farm_content);
-        login_farm_location = (TextView)findViewById(R.id.login_farm_location);
         loginFarm_WebView = (WebView)findViewById(R.id.loginFarm_WebView);
 
         setURL = new setURL();

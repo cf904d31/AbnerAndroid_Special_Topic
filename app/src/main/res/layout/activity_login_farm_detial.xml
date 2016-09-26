@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_toLeftOf="@id/btnInsert"
-                    android:layout_alignBottom="@id/btnInsert"
+                    android:layout_alignTop="@id/btnInsert"
                     android:textSize="26sp"
                     android:textColor="#11aaff"
                     />
@@ -48,12 +48,12 @@
                 android:id="@+id/login_farm_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"/>
+                android:textSize="20sp"/>
             <TextView
-                android:id="@+id/login_farm_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"/>
+                android:textSize="24sp"
+                android:text="地理位置..............................."/>
             <WebView
                 android:id="@+id/loginFarm_WebView"
                 android:layout_width="match_parent"

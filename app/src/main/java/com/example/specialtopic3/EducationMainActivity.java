@@ -87,8 +87,11 @@ public class EducationMainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("Abner","i = " + id);
-                //Toast.makeText(MainActivity.this,"OK",Toast.LENGTH_SHORT).show();
                 Toast.makeText(EducationMainActivity.this,"title=" + linkedList.get(position).get("title"),Toast.LENGTH_SHORT).show();
+                Intent it = new Intent();
+                it.setClass(EducationMainActivity.this,EducationFarmDetial.class);
+                it.putExtra("farmName",(String)linkedList.get(position).get("title"));
+                startActivity(it);
             }
         });
 

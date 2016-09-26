@@ -16,7 +16,7 @@ public class LiveTownChoose extends AppCompatActivity {
     public void taipei(View v) {
         Intent it = new Intent();
         it.setClass(this,LiveMainActivity.class);
-        it.putExtra("name","臺北市");
+        it.putExtra("name","台北市");
         startActivity(it);
     }
 
@@ -65,7 +65,7 @@ public class LiveTownChoose extends AppCompatActivity {
     public void taichung(View v) {
         Intent it = new Intent();
         it.setClass(this,LiveMainActivity.class);
-        it.putExtra("name","臺中市");
+        it.putExtra("name","台中市");
         startActivity(it);
     }
 
@@ -107,7 +107,7 @@ public class LiveTownChoose extends AppCompatActivity {
     public void tainan(View v) {
         Intent it = new Intent();
         it.setClass(this,LiveMainActivity.class);
-        it.putExtra("name","臺南市");
+        it.putExtra("name","台南市");
         startActivity(it);
     }
 
@@ -128,7 +128,7 @@ public class LiveTownChoose extends AppCompatActivity {
     public void taitung(View v) {
         Intent it = new Intent();
         it.setClass(this,LiveMainActivity.class);
-        it.putExtra("name","臺東縣");
+        it.putExtra("name","台東縣");
         startActivity(it);
     }
 
