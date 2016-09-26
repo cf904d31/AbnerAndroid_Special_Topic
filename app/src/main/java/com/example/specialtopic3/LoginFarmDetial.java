@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +29,9 @@ public class LoginFarmDetial extends AppCompatActivity {
     private String url = "http://data.coa.gov.tw/Service/OpenData/DataFileService.aspx?UnitId=376";
     private String data;
     private ConnectivityManager mgr;
+    private WebView loginFarm_WebView;
+    private float lat,lng;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +40,10 @@ public class LoginFarmDetial extends AppCompatActivity {
         login_farm_title = (TextView)findViewById(R.id.login_farm_title);
         login_farm_content = (TextView)findViewById(R.id.login_farm_content);
         login_farm_location = (TextView)findViewById(R.id.login_farm_location);
+        loginFarm_WebView = (WebView)findViewById(R.id.loginFarm_WebView);
 
         setURL = new setURL();
+        initWebview();
 
 
         mgr = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
@@ -69,6 +77,8 @@ public class LoginFarmDetial extends AppCompatActivity {
         login_farm_title.setText(farmName);
 
         if (login_farm_content.getText() == "") {
+
+
             Log.d("Abner","TextView是空的");
             try {
                 JSONArray jsonArray = new JSONArray(data);
@@ -79,6 +89,8 @@ public class LoginFarmDetial extends AppCompatActivity {
                         String addr = row.getString("住址");
                         String tel = row.getString("農場電話");
                         String web = row.getString("農場網址");
+                        lng = (float) row.getDouble("經度-X");
+                        lat = (float) row.getDouble("緯度-Y");
                         login_farm_content.setText("農場地址:" + addr + "\n" + "TEL:" + tel + "\n" + web);
                     }
                 }
@@ -86,5 +98,18 @@ public class LoginFarmDetial extends AppCompatActivity {
                 Log.d("Abner", e.toString());
             }
         }
+        loginFarm_WebView.loadUrl("javascript:initMap(" + lat + ", " + lng +")");
+    }
+
+
+    private void initWebview() {
+        WebViewClient client = new WebViewClient();
+        loginFarm_WebView.setWebViewClient(client);
+
+        WebSettings settings = loginFarm_WebView.getSettings();
+        settings.setJavaScriptEnabled(true);
+
+        //loginFarm_WebView.addJavascriptInterface(new AbnerJS(),"Abner");
+        loginFarm_WebView.loadUrl("file:///android_asset/Page2.html");
     }
 }

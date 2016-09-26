@@ -54,6 +54,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"/>
+            <WebView
+                android:id="@+id/loginFarm_WebView"
+                android:layout_width="match_parent"
+                android:layout_height="1000px">
+
+            </WebView>
         </LinearLayout>
 
 
