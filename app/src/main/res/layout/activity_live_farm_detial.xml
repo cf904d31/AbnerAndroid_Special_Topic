@@ -27,7 +27,7 @@
                     android:onClick="insert"
                     />
                 <TextView
-                    android:id="@+id/education_farm_title"
+                    android:id="@+id/live_farm_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -51,10 +51,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="服務項目..............................."
+                android:text="主人的話..............................."
                 android:textSize="24sp"/>
             <TextView
-                android:id="@+id/live_farm_service"
+                android:id="@+id/live_farm_hosttell"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"/>
@@ -62,13 +62,105 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
-                android:text="地理位置..............................."/>
-            <WebView
-                android:id="@+id/liveFarm_WebView"
+                android:text="費用簡介..............................."/>
+            <TextView
+                android:id="@+id/live_farm_price"
                 android:layout_width="match_parent"
-                android:layout_height="1000px">
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="房間數量..............................."/>
+            <TextView
+                android:id="@+id/live_farm_staycapacity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="開放時間..............................."/>
+            <TextView
+                android:id="@+id/live_farm_openhours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="可否使用信用卡或者國民旅遊卡"/>
+            <TextView
+                android:id="@+id/live_farm_creditcard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="交通指引..............................."/>
+            <TextView
+                android:id="@+id/live_farm_trafficguide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="停車場數量............................"/>
+            <TextView
+                android:id="@+id/live_farm_parkinglot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="網站、電子信箱或部落格........"/>
+            <TextView
+                android:id="@+id/live_farm_weburl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="寵物須知..............................."/>
+            <TextView
+                android:id="@+id/live_farm_petnotice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="貼心叮嚀..............................."/>
+            <TextView
+                android:id="@+id/live_farm_reminder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="住宿特色..............................."/>
+            <TextView
+                android:id="@+id/live_farm_stayfeature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
 
-            </WebView>
+
+
         </LinearLayout>
 
 
