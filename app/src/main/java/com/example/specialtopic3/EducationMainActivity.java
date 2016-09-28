@@ -45,18 +45,21 @@ public class EducationMainActivity extends AppCompatActivity {
         educationShowList = (ListView)findViewById(R.id.educationShowList);
         educationMainTxtTitle = (TextView) findViewById(R.id.educationMainTxtTitle);
         setURL = new setURL();
+        setURL.URL(url);
+        data = setURL.getData();
 
         intitListView();
 
         Intent it = this.getIntent();
         town = it.getStringExtra("name");
+        data = it.getStringExtra("data");
+        Log.d("Abner","EducationMainActivity" + town);
+        Log.d("Abner","EducationMainActivity" + data);
         educationMainTxtTitle.setText(town);
 
         mgr = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo info = mgr.getActiveNetworkInfo();
         if (info != null && info.isConnected()){
-            setURL.URL(url);
-
             try {
                 Enumeration<NetworkInterface> ifs = NetworkInterface.getNetworkInterfaces();
                 while (ifs.hasMoreElements()){
@@ -108,7 +111,6 @@ public class EducationMainActivity extends AppCompatActivity {
     public void insert(View v) {
         setURL.URL(url);
         data = setURL.getData();
-
         if (linkedList.isEmpty()) {
             try {
                 JSONArray jsonArray = new JSONArray(data);

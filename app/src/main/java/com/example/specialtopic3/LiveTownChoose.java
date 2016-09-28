@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 
 public class LiveTownChoose extends AppCompatActivity {
-
+    private setURL setURL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_town_choose);
+        setURL = new setURL();
+        setURL.URL("http://data.coa.gov.tw/Service/OpenData/EzgoTravelHotelStay.aspx");
+        String data = setURL.getData();
     }
 
     public void taipei(View v) {

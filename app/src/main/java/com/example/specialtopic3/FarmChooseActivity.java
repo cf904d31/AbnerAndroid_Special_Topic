@@ -8,7 +8,6 @@ import android.view.View;
 import java.util.List;
 
 public class FarmChooseActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

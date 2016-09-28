@@ -3,20 +3,30 @@ package com.example.specialtopic3;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 public class EducationTownChoose extends AppCompatActivity {
-
+    private setURL setURL;
+    private String data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_education_town_choose);
+        setURL = new setURL();
+        setURL.URL("http://data.coa.gov.tw/Service/OpenData/EzgoOutdoorEdu.aspx");
+        data = setURL.getData();
+        Log.d("Abner","EducationTownChoose"+data);
     }
 
     public void taipei(View v) {
+        setURL.URL("http://data.coa.gov.tw/Service/OpenData/EzgoOutdoorEdu.aspx");
+        data = setURL.getData();
         Intent it = new Intent();
         it.setClass(this,EducationMainActivity.class);
         it.putExtra("name","台北市");
+        Log.d("Abner","taipei"+data);
+        it.putExtra("data",data);
         startActivity(it);
     }
 
