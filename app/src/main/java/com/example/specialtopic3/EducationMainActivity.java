@@ -46,7 +46,7 @@ public class EducationMainActivity extends AppCompatActivity {
         educationMainTxtTitle = (TextView) findViewById(R.id.educationMainTxtTitle);
         setURL = new setURL();
         setURL.URL(url);
-        data = setURL.getData();
+        //data = setURL.getData();
 
         intitListView();
 

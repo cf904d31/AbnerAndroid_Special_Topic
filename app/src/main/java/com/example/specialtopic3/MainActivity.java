@@ -51,18 +51,19 @@ public class MainActivity extends AppCompatActivity {
         showList = (ListView) findViewById(R.id.showList);
         mainTxtTitle = (TextView) findViewById(R.id.mainTxtTitle);
         setURL = new setURL();
+        setURL.URL(url);
 
         intitListView();
 
         Intent it = this.getIntent();
         town = it.getStringExtra("name");
+        data = it.getStringExtra("data");
         mainTxtTitle.setText(town);
+        insertData();
 
         mgr = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo info = mgr.getActiveNetworkInfo();
         if (info != null && info.isConnected()){
-            setURL.URL(url);
-
             try {
                 Enumeration<NetworkInterface> ifs = NetworkInterface.getNetworkInterfaces();
                 while (ifs.hasMoreElements()){
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent it = new Intent();
                 it.setClass(MainActivity.this,LoginFarmDetial.class);
                 it.putExtra("farmName",(String)linkedList.get(position).get("title"));
+                it.putExtra("data",data);
                 startActivity(it);
             }
         });
@@ -139,7 +141,31 @@ public class MainActivity extends AppCompatActivity {
     public void insert(View v) {
         setURL.URL(url);
         data = setURL.getData();
+        if (linkedList.isEmpty()) {
+            try {
+                JSONArray jsonArray = new JSONArray(data);
+                //Log.d("Abner",""+jsonArray.length());
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject row = jsonArray.getJSONObject(i);
+                    if (row.getString("縣市").equals(town)) {
+                        String name = row.getString("農場名稱");
+                        String addr = row.getString("住址");
+                        HashMap<String, Object> pageitem = new HashMap<>();
+                        pageitem.put(from[0], name);
+                        pageitem.put(from[1], addr);
+                        pageitem.put(from[2], img[(int) (Math.random() * 7)]);
+                        linkedList.add(pageitem);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            } catch (Exception e) {
+                Log.d("Abner", e.toString());
+            }
+        }
+    }
 
+
+    private void insertData() {
         if (linkedList.isEmpty()) {
             try {
                 JSONArray jsonArray = new JSONArray(data);

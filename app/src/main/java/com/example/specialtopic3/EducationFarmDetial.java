@@ -43,7 +43,6 @@ public class EducationFarmDetial extends AppCompatActivity {
 
         setURL = new setURL();
         setURL.URL(url);
-        data = setURL.getData();
         initWebview();
 
         Intent it = getIntent();
@@ -56,7 +55,7 @@ public class EducationFarmDetial extends AppCompatActivity {
         mgr = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo info = mgr.getActiveNetworkInfo();
         if (info != null && info.isConnected()){
-            setURL.URL(url);
+            //setURL.URL(url);
 
             try {
                 Enumeration<NetworkInterface> ifs = NetworkInterface.getNetworkInterfaces();
@@ -142,7 +141,13 @@ public class EducationFarmDetial extends AppCompatActivity {
 
     private void initWebview() {
         WebViewClient client = new WebViewClient();
-        educationFarm_WebView.setWebViewClient(client);
+        educationFarm_WebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                educationFarm_WebView.loadUrl("javascript:initMap(" + lat + ", " + lng +")");
+            }
+        });
 
         WebSettings settings = educationFarm_WebView.getSettings();
         settings.setJavaScriptEnabled(true);

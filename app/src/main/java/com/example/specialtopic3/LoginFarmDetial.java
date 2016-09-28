@@ -31,6 +31,7 @@ public class LoginFarmDetial extends AppCompatActivity {
     private ConnectivityManager mgr;
     private WebView loginFarm_WebView;
     private float lat,lng;
+    private String farmName;
 
 
     @Override
@@ -42,14 +43,20 @@ public class LoginFarmDetial extends AppCompatActivity {
         loginFarm_WebView = (WebView)findViewById(R.id.loginFarm_WebView);
 
         setURL = new setURL();
+        setURL.URL(url);
         initWebview();
+
+        Intent it = getIntent();
+        farmName = it.getStringExtra("farmName");
+        data = it.getStringExtra("data");
+        login_farm_title.setText(farmName);
+
+        insertData();
 
 
         mgr = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo info = mgr.getActiveNetworkInfo();
         if (info != null && info.isConnected()){
-            setURL.URL(url);
-
             try {
                 Enumeration<NetworkInterface> ifs = NetworkInterface.getNetworkInterfaces();
                 while (ifs.hasMoreElements()){
@@ -71,13 +78,7 @@ public class LoginFarmDetial extends AppCompatActivity {
     public void insert(View v) {
         setURL.URL(url);
         data = setURL.getData();
-        Intent it = getIntent();
-        String farmName = it.getStringExtra("farmName");
-        login_farm_title.setText(farmName);
-
         if (login_farm_content.getText() == "") {
-
-
             Log.d("Abner","TextView是空的");
             try {
                 JSONArray jsonArray = new JSONArray(data);
@@ -101,14 +102,43 @@ public class LoginFarmDetial extends AppCompatActivity {
     }
 
 
+    private void insertData() {
+        if (login_farm_content.getText() == "") {
+            Log.d("Abner","TextView是空的");
+            try {
+                JSONArray jsonArray = new JSONArray(data);
+                //Log.d("Abner",""+jsonArray.length());
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject row = jsonArray.getJSONObject(i);
+                    if (row.getString("農場名稱").equals(farmName)) {
+                        String addr = row.getString("住址");
+                        String tel = row.getString("農場電話");
+                        String web = row.getString("農場網址");
+                        lng = (float) row.getDouble("經度-X");
+                        lat = (float) row.getDouble("緯度-Y");
+                        login_farm_content.setText("農場地址:" + addr + "\n" + "TEL:" + tel + "\n" + web);
+                    }
+                }
+            } catch (Exception e) {
+                Log.d("Abner", e.toString());
+            }
+        }
+    }
+
+
     private void initWebview() {
         WebViewClient client = new WebViewClient();
-        loginFarm_WebView.setWebViewClient(client);
+        loginFarm_WebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                loginFarm_WebView.loadUrl("javascript:initMap(" + lat + ", " + lng +")");
+            }
+        });
 
         WebSettings settings = loginFarm_WebView.getSettings();
         settings.setJavaScriptEnabled(true);
 
-        //loginFarm_WebView.addJavascriptInterface(new AbnerJS(),"Abner");
         loginFarm_WebView.loadUrl("file:///android_asset/Page2.html");
     }
 }

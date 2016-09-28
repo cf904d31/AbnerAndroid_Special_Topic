@@ -45,17 +45,20 @@ public class LiveMainActivity extends AppCompatActivity {
         liveShowList = (ListView)findViewById(R.id.liveShowList);
         liveMainTxtTitle = (TextView) findViewById(R.id.liveMainTxtTitle);
         setURL = new setURL();
+        setURL.URL(url);
 
         intitListView();
 
         Intent it = this.getIntent();
         town = it.getStringExtra("name");
         liveMainTxtTitle.setText(town);
+        data = it.getStringExtra("data");
+        insertData();
 
         mgr = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo info = mgr.getActiveNetworkInfo();
         if (info != null && info.isConnected()){
-            setURL.URL(url);
+            //setURL.URL(url);
 
             try {
                 Enumeration<NetworkInterface> ifs = NetworkInterface.getNetworkInterfaces();
@@ -91,6 +94,7 @@ public class LiveMainActivity extends AppCompatActivity {
                 Intent it = new Intent();
                 it.setClass(LiveMainActivity.this,LiveFarmDetial.class);
                 it.putExtra("farmName",(String)linkedList.get(position).get("title"));
+                it.putExtra("data",data);
                 startActivity(it);
             }
         });
@@ -113,6 +117,29 @@ public class LiveMainActivity extends AppCompatActivity {
             try {
                 JSONArray jsonArray = new JSONArray(data);
                 //Log.d("Abner",""+jsonArray.length());
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject row = jsonArray.getJSONObject(i);
+                    if (row.getString("City").equals(town)) {
+                        String name = row.getString("Name");
+                        String addr = row.getString("Address");
+                        HashMap<String, Object> pageitem = new HashMap<>();
+                        pageitem.put(from[0], name);
+                        pageitem.put(from[1], addr);
+                        pageitem.put(from[2], img[(int) (Math.random() * 7)]);
+                        linkedList.add(pageitem);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            } catch (Exception e) {
+                Log.d("Abner", e.toString());
+            }
+        }
+    }
+
+    private void insertData() {
+        if (linkedList.isEmpty()) {
+            try {
+                JSONArray jsonArray = new JSONArray(data);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject row = jsonArray.getJSONObject(i);
                     if (row.getString("City").equals(town)) {
