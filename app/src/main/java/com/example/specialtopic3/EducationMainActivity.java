@@ -56,6 +56,7 @@ public class EducationMainActivity extends AppCompatActivity {
         Log.d("Abner","EducationMainActivity" + town);
         Log.d("Abner","EducationMainActivity" + data);
         educationMainTxtTitle.setText(town);
+        insertData();
 
         mgr = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo info = mgr.getActiveNetworkInfo();
@@ -94,6 +95,8 @@ public class EducationMainActivity extends AppCompatActivity {
                 Intent it = new Intent();
                 it.setClass(EducationMainActivity.this,EducationFarmDetial.class);
                 it.putExtra("farmName",(String)linkedList.get(position).get("title"));
+                it.putExtra("data",data);
+                Log.d("Abner","setOnItemClickListener"+data);
                 startActivity(it);
             }
         });
@@ -111,6 +114,30 @@ public class EducationMainActivity extends AppCompatActivity {
     public void insert(View v) {
         setURL.URL(url);
         data = setURL.getData();
+        if (linkedList.isEmpty()) {
+            try {
+                JSONArray jsonArray = new JSONArray(data);
+                //Log.d("Abner",""+jsonArray.length());
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject row = jsonArray.getJSONObject(i);
+                    if (row.getString("County").equals(town)) {
+                        String name = row.getString("FarmNm_CH");
+                        String addr = row.getString("Address_CH");
+                        HashMap<String, Object> pageitem = new HashMap<>();
+                        pageitem.put(from[0], name);
+                        pageitem.put(from[1], addr);
+                        pageitem.put(from[2], img[(int) (Math.random() * 7)]);
+                        linkedList.add(pageitem);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            } catch (Exception e) {
+                Log.d("Abner", e.toString());
+            }
+        }
+    }
+
+    private void insertData() {
         if (linkedList.isEmpty()) {
             try {
                 JSONArray jsonArray = new JSONArray(data);

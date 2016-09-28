@@ -29,6 +29,7 @@ public class EducationFarmDetial extends AppCompatActivity {
     private ConnectivityManager mgr;
     private WebView educationFarm_WebView;
     private float lat,lng;
+    private String farmName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +42,16 @@ public class EducationFarmDetial extends AppCompatActivity {
         education_farm_service = (TextView)findViewById(R.id.education_farm_service);
 
         setURL = new setURL();
+        setURL.URL(url);
+        data = setURL.getData();
         initWebview();
 
+        Intent it = getIntent();
+        farmName = it.getStringExtra("farmName");
+        data = it.getStringExtra("data");
+        education_farm_title.setText(farmName);
+
+        insertData();
 
         mgr = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo info = mgr.getActiveNetworkInfo();
@@ -70,10 +79,38 @@ public class EducationFarmDetial extends AppCompatActivity {
     public void insert(View v) {
         setURL.URL(url);
         data = setURL.getData();
-        Intent it = getIntent();
-        String farmName = it.getStringExtra("farmName");
-        education_farm_title.setText(farmName);
 
+        if (education_farm_content.getText() == "") {
+
+
+            Log.d("Abner","TextView是空的");
+            try {
+                JSONArray jsonArray = new JSONArray(data);
+                //Log.d("Abner",""+jsonArray.length());
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject row = jsonArray.getJSONObject(i);
+                    if (row.getString("FarmNm_CH").equals(farmName)) {
+                        String addr = row.getString("Address_CH");
+                        String tel = row.getString("TEL");
+                        String web = row.getString("WebURL");
+                        String fb = row.getString("Facebook");
+                        String service = row.getString("ServeItem");
+                        lng = (float) row.getDouble("Longitude");
+                        lat = (float) row.getDouble("Latitude");
+                        education_farm_content.setText("農場地址:" + addr + "\n" + "TEL:" + tel + "\n" + web + "\n" + fb);
+                        education_farm_service.setText(service);
+                    }
+                }
+            } catch (Exception e) {
+                Log.d("Abner", e.toString());
+            }
+        }
+        educationFarm_WebView.loadUrl("javascript:initMap(" + lat + ", " + lng +")");
+    }
+
+
+
+    private void insertData() {
         if (education_farm_content.getText() == "") {
 
 
